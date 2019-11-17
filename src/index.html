@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    //= templates/head.html
+    <link rel="stylesheet" href="css/styles.min.css">
+    <title>Document</title>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" role="document" data-events="true">
+    
+    <div class="layout layout--hero">
+
+        <!-- header -->
+        //= templates/header.html
+
+        <!-- main -->
+        <main class="layout__body" itemprop="mainContentOfPage">
+            <!-- breadcrumbs -->
+            //= templates/breadcrumbs.html
+
+            <!-- hero -->
+            //= templates/hero.html
+
+            <!-- contacts -->
+            //= templates/contacts.html
+        </main>
+
+        <!-- footer -->
+        //= templates/footer.html
+        
+    </div>
+
+    <!-- scripts -->
+    <script src="js/main.min.js"></script>
+
+</body>
+</html>
