@@ -14,3 +14,11 @@
    </ul>
 </p>
 <p>Само собой, буду пакет совершенствовать и выкладывать обновления.</p>
+
+<ul>ToDo:
+  <li>Fonts -> convert to woff2, copy to dist</li>
+  <li>Images -> css-sprites + minify, copy to dist</li>
+  <li>Babel</li>
+  <li>ES Shims</li>
+  <li>mail.php -> phpmail() template</li>
+</ul>
