@@ -7,6 +7,8 @@ var gulp = require('gulp'),
     srcm = require('gulp-sourcemaps'),
     conc = require('gulp-concat'),
     smit = require('gulp.spritesmith'),
+    imagemin = require('gulp-imagemin'),
+    imgCompress = require('imagemin-jpeg-recompress'),
     merge = require('merge-stream'),
     font = require('gulp-ttf2woff2'),
     sync = require('browser-sync');
@@ -63,9 +65,6 @@ gulp.task('sprite', function () {
       imgName: 'sprite.png',
       imgPath: '../img/sprite.png',
       cssName: '_sprite.scss',
-      retinaSrcFilter: 'src/img/sprite-icons/*@2x.png',
-      retinaImgName: 'sprite@2x.png',
-      retinaImgPath: '../img/sprite@2x.png',
       padding: 10
     }));
     
@@ -79,7 +78,24 @@ gulp.task('sprite', function () {
     
     // Return a merged stream to handle both `end` events
     return merge(imgStream, cssStream);
-  });
+});
+
+// Optimize images
+gulp.task('img', function() {
+    return gulp.src('src/img/pictures/*.*')
+    .pipe(imagemin([
+      imgCompress({
+        loops: 4,
+        min: 70,
+        max: 80,
+        quality: 'high'
+      }),
+      imagemin.gifsicle(),
+      imagemin.optipng(),
+      imagemin.svgo()
+    ]))
+    .pipe(gulp.dest('dist/img'));
+});
 
 gulp.task('browser-sync', function(cb) {
     sync({
@@ -103,4 +119,4 @@ gulp.task('watch', function(cb) {
     cb();
 });
 
-gulp.task('default',  gulp.parallel('html', 'styles', 'scripts', 'browser-sync', 'watch')); //use 'ttf2woff2' at once
+gulp.task('default',  gulp.parallel('html', 'styles', 'scripts', 'img', 'browser-sync', 'watch')); //use 'ttf2woff2' at once
